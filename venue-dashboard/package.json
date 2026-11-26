@@ -1,0 +1,27 @@
+{
+  "name": "@ryadom/venue-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Кабинет заведения: Wi‑Fi сети, события, живая статистика",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@ryadom/shared": "*",
+    "leaflet": "^1.9.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.20",
+    "@types/react": "~19.3.0",
+    "@types/react-dom": "~19.3.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.0"
+  }
+}

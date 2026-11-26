@@ -1,0 +1,23 @@
+{
+  "name": "ryadom",
+  "private": true,
+  "description": "Рядом — знакомства и общение с людьми в одной Wi‑Fi сети: кафе, поезд, спортзал",
+  "workspaces": [
+    "shared",
+    "server",
+    "venue-dashboard",
+    "mobile"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @ryadom/server",
+    "dev:dashboard": "npm run dev -w @ryadom/venue-dashboard",
+    "dev:mobile": "npm run start -w @ryadom/mobile",
+    "build": "npm run build -w @ryadom/venue-dashboard && npm run build -w @ryadom/server",
+    "start": "npm run start -w @ryadom/server",
+    "test": "npm test -w @ryadom/shared && npm test -w @ryadom/server",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

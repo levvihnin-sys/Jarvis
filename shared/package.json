@@ -1,0 +1,25 @@
+{
+  "name": "@ryadom/shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Протокол, схемы валидации, криптография и гео-утилиты, общие для клиента и сервера",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "tweetnacl": "^1.0.3",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vitest": "^4.0.0",
+    "@types/node": "^22.20.0"
+  }
+}
