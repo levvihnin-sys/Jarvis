@@ -28,7 +28,8 @@
         "ACCESS_WIFI_STATE",
         "ACCESS_NETWORK_STATE"
       ],
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -47,6 +48,17 @@
         "expo-image-picker",
         {
           "photosPermission": "Фото нужно, чтобы поставить его в профиль. Оно хранится на телефоне и показывается только людям рядом."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true,
+            "buildArchs": [
+              "arm64-v8a"
+            ]
+          }
         }
       ]
     ],

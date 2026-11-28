@@ -81,6 +81,22 @@ npm run dev:mobile          # Expo; в вебе: нажмите w, сервер 
 5. Для production-сборок нужны HTTPS/WSS (iOS ATS блокирует `http://`) и ключ Google Maps для Android:
    плагин `react-native-maps` в `app.json`.
 
+### Сборка APK для Android
+
+```bash
+export ANDROID_HOME=/путь/к/android-sdk     # platform android-37.0, build-tools 37.0.0, NDK 27.1.12297006, CMake 3.22.1
+npm run android:apk -w @ryadom/mobile        # → mobile/android/app/build/outputs/apk/release/app-release.apk
+```
+
+* Сборка только под `arm64-v8a` (почти все телефоны с 2017 года): `expo-build-properties → buildArchs` в `app.json`.
+* APK подписан отладочным ключом — для установки вручную («Установка из неизвестных источников»).
+  Для Google Play нужен свой keystore или `eas build`.
+* Разрешён `http://` (`usesCleartextTraffic`), чтобы подключаться к серверу на компьютере в локальной сети.
+  В продакшене — только HTTPS/WSS.
+* Карта на Android — Leaflet + OpenStreetMap во WebView (не нужен ключ Google Maps); на iOS — Apple Maps.
+* После установки откройте приложение: на экране «Здесь» появится поле «Адрес сервера» — впишите
+  `http://<IP компьютера>:8080`, где запущен `npm start`.
+
 ### Настройки сервера (переменные окружения)
 
 | Переменная | По умолчанию | Назначение |

@@ -4,8 +4,8 @@ import { router } from 'expo-router';
 import * as Location from 'expo-location';
 import { INTERESTS, type InterestId } from '@ryadom/shared';
 import { EventCard, PeerCard, ZoneHeader } from '../../components/cards';
-import { Banner, Body, Button, Chip, Empty } from '../../components/ui';
-import { reconnect } from '../../state/actions';
+import { Banner, Body, Button, Card, Chip, Empty, Field } from '../../components/ui';
+import { reconnect, saveSettings } from '../../state/actions';
 import { useApp } from '../../state/store';
 import { space, useTheme } from '../../theme';
 
@@ -48,7 +48,7 @@ export default function HereScreen() {
             count={Object.keys(peersMap).length}
             onVenuePress={zone?.venue ? () => router.push({ pathname: '/venue/[id]', params: { id: zone.venue!.id } }) : undefined}
           />
-          {conn.status === 'offline' ? <Button kind="secondary" title="Переподключиться" onPress={reconnect} /> : null}
+          {conn.status === 'offline' ? <ServerCard /> : null}
           {showSsidHint ? (
             <Banner tone="info">
               <Body>Название сети недоступно — люди определяются только по адресу сети. Разрешите геолокацию, чтобы точнее отличать сети.</Body>
@@ -94,5 +94,26 @@ export default function HereScreen() {
         />
       )}
     />
+  );
+}
+
+/** Когда сервер недоступен — даём сразу поправить его адрес (в APK по умолчанию localhost). */
+function ServerCard() {
+  const current = useApp((s) => s.settings.serverUrl);
+  const [value, setValue] = useState(current);
+  const valid = /^https?:\/\/[^\s/]+/.test(value.trim());
+  return (
+    <Card style={{ gap: space.s }}>
+      <Body>
+        Сервер {current} не отвечает. Укажите адрес компьютера, где запущен сервер «Рядом», — например http://192.168.1.10:8080
+        (телефон и компьютер должны быть в одной Wi‑Fi сети).
+      </Body>
+      <Field label="Адрес сервера" value={value} onChangeText={setValue} autoCapitalize="none" autoCorrect={false} keyboardType="url" />
+      <Button
+        title={value.trim() === current ? 'Переподключиться' : 'Сохранить и подключиться'}
+        disabled={!valid}
+        onPress={() => (value.trim() === current ? reconnect() : void saveSettings({ serverUrl: value.trim() }))}
+      />
+    </Card>
   );
 }
